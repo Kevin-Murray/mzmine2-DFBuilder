@@ -98,6 +98,7 @@ import net.sf.mzmine.modules.rawdatamethods.filtering.baselinecorrection.Baselin
 import net.sf.mzmine.modules.rawdatamethods.filtering.cropper.CropFilterModule;
 import net.sf.mzmine.modules.rawdatamethods.filtering.scanfilters.ScanFiltersModule;
 import net.sf.mzmine.modules.rawdatamethods.filtering.scansmoothing.ScanSmoothingModule;
+import net.sf.mzmine.modules.rawdatamethods.filtering.diagnosticfilter.DiagnosticFilterModule;
 import net.sf.mzmine.modules.rawdatamethods.merge.RawFileMergeModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.gridmass.GridMassModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.manual.ManualPeakPickerModule;
@@ -178,6 +179,7 @@ public class MZmineModulesList {
       ScanSmoothingModule.class, //
       SortDataFilesModule.class, //
       XICManualPickerModule.class, //
+      DiagnosticFilterModule.class, //
 
       // Alignment
       SortPeakListsModule.class, //
