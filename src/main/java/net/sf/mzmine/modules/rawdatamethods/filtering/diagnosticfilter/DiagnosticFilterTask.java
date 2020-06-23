@@ -64,6 +64,7 @@ public class DiagnosticFilterTask extends AbstractTask {
   private MZTolerance mzDifference;
   private File fileName;
   private Double basePeakPercent;
+  private Double minIntensity;
   private int finishedLines = 0;
 
   DiagnosticFilterTask(final RawDataFile rawDataFile, final ParameterSet parameters) {
@@ -79,6 +80,7 @@ public class DiagnosticFilterTask extends AbstractTask {
     this.mzRange = parameters.getParameter(DiagnosticFilterParameters.mzRange).getValue();
     this.mzDifference = parameters.getParameter(DiagnosticFilterParameters.mzDifference).getValue();
     this.basePeakPercent = parameters.getParameter(DiagnosticFilterParameters.basePeakPercent).getValue() / 100;
+    this.minIntensity = parameters.getParameter(DiagnosticFilterParameters.minIntensity).getValue();
     this.fileName = parameters.getParameter(DiagnosticFilterParameters.fileName).getValue();
   }
 
@@ -127,11 +129,6 @@ public class DiagnosticFilterTask extends AbstractTask {
               Double mz = target.getMZ();
               Range<Double> rtRange = target.getRTRange();
               if(mzDifference.checkWithinTolerance(mz, scan.getPrecursorMZ())){
-                   logger.info("Precursor MZ: " + scan.getPrecursorMZ());
-                   logger.info("Precursor RT: " + scan.getRetentionTime());
-                   logger.info("RT Range: " + rtRange);
-                   logger.info("Test: " + rtRange.contains(scan.getRetentionTime()));
-                   logger.info("Scan: " + scan.getScanNumber());
                   if(rtRange.contains(scan.getRetentionTime())){
                       exclude = true;
                   }
@@ -158,8 +155,17 @@ public class DiagnosticFilterTask extends AbstractTask {
       // threshold defined as : 'scan
       // basePeak Intensity' * percent of base Peak to include
       List<Integer> topPeaksList = new ArrayList<Integer>();
-      double highestIntensity = scan.getHighestDataPoint().getIntensity() * basePeakPercent;
-
+      
+      double highestIntensity = 0;
+      if(basePeakPercent == 0){
+          highestIntensity = minIntensity;
+      } else if (minIntensity == 0) {
+          highestIntensity = scan.getHighestDataPoint().getIntensity() * basePeakPercent;
+      } else {
+          highestIntensity = Double.min(scan.getHighestDataPoint().getIntensity() * basePeakPercent,
+              minIntensity);
+      }
+            
       for (int i = 0; i < scanDataPoints.length; i++) {
         // Cancel?
         if (isCanceled())
@@ -318,15 +324,15 @@ public class DiagnosticFilterTask extends AbstractTask {
         // .csv file
         String dataMZ = Double.toString(scan.getPrecursorMZ());
         String dataRT = Double.toString(scan.getRetentionTime());
-        String dataNM = Double.toString(scan.getScanNumber());
         
-        String temp = dataMZ + "," + dataRT + "," + "scan=" + dataNM +';';
+        String temp = dataMZ + "," + dataRT + ",";
         
         for(Map.Entry<String, Boolean> entry : targetMap.entrySet()) {
         	if(entry.getValue()) {
         		temp = temp + "target=" + entry.getKey() + ';';
         	}
         }
+        temp = temp.substring(0, temp.length() - 1);
 
         dataList.add(temp);
       }
@@ -486,4 +492,8 @@ public class DiagnosticFilterTask extends AbstractTask {
 	  }
 	  
   }
+   
+   public void writeDiagnostic(PeakInformation peak){
+       
+   }
 }

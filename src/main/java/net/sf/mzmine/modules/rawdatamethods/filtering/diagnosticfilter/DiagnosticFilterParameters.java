@@ -43,7 +43,7 @@ public class DiagnosticFilterParameters extends SimpleParameterSet {
 		  "csv");
   
   public static final OptionalParameter<FileNameParameter> exclusionFile =
-      new OptionalParameter<>(new FileNameParameter("Optional exclusion feature list input file",
+      new OptionalParameter<>(new FileNameParameter("(Optional) exclusion feature list input file",
 		  "Spectral massess and retentions windows to exclude from export, containing the mz, start RT, and end RT",
 		  "csv"));
 
@@ -51,8 +51,13 @@ public class DiagnosticFilterParameters extends SimpleParameterSet {
 
   public static final DoubleParameter basePeakPercent = new DoubleParameter(
       "Minimum diagnostic ion intensity (% base peak)",
-      "Percent of scan base peak of which ms/ms product ions must be above to be included in analysis",
-      MZmineCore.getConfiguration().getRTFormat(), 5.0);
+      "Percent of scan base peak of which ms/ms product ions must be above to be included in analysis, will chose non-zero minimum between %base peak and min intensity",
+      MZmineCore.getConfiguration().getRTFormat(), 5.0, 0.0, 100.0);
+    
+  public static final DoubleParameter minIntensity = new DoubleParameter(
+      "Minimum diagnostic ion intensity (abundance)",
+      "Minimum relative abundance of which ms/ms product ions must be above to be included in analysis, will chose non-zero minimum between %base peak and min intensity",
+      MZmineCore.getConfiguration().getRTFormat(), 25000.0);
 
   public static final FileNameParameter fileName = new FileNameParameter("Peaklist output file",
       "Name of the output CSV file containing m/z and RT of selected precursor ions. "
@@ -61,7 +66,7 @@ public class DiagnosticFilterParameters extends SimpleParameterSet {
 
   public DiagnosticFilterParameters() {
     super(new Parameter[] {dataFiles, scanSelection, diagnosticFile, exclusionFile,
-        mzRange, mzDifference, basePeakPercent, fileName});
+        mzRange, mzDifference, basePeakPercent, minIntensity, fileName});
   }
 
 }

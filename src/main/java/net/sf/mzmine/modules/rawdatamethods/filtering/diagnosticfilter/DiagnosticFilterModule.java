@@ -22,6 +22,8 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
+import java.io.FileWriter;
+
 import net.sf.mzmine.datamodel.MZmineProject;
 import net.sf.mzmine.datamodel.RawDataFile;
 import net.sf.mzmine.modules.MZmineModuleCategory;
@@ -73,5 +75,4 @@ public class DiagnosticFilterModule implements MZmineProcessingModule {
   public @Nonnull Class<? extends ParameterSet> getParameterSetClass() {
     return DiagnosticFilterParameters.class;
   }
-
 }
