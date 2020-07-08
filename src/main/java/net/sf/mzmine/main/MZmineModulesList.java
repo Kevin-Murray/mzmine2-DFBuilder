@@ -98,14 +98,13 @@ import net.sf.mzmine.modules.rawdatamethods.filtering.baselinecorrection.Baselin
 import net.sf.mzmine.modules.rawdatamethods.filtering.cropper.CropFilterModule;
 import net.sf.mzmine.modules.rawdatamethods.filtering.scanfilters.ScanFiltersModule;
 import net.sf.mzmine.modules.rawdatamethods.filtering.scansmoothing.ScanSmoothingModule;
-import net.sf.mzmine.modules.rawdatamethods.filtering.diagnosticfilter.DiagnosticFilterModule;
 import net.sf.mzmine.modules.rawdatamethods.merge.RawFileMergeModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.gridmass.GridMassModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.manual.ManualPeakPickerModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.manual.XICManualPickerModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.massdetection.MassDetectionModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.msms.MsMsPeakPickerModule;
-import net.sf.mzmine.modules.rawdatamethods.peakpicking.targetedpeakdetection.TargetedPeakDetectionModule;
+import net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter.DiagnosticFilterModule;
 import net.sf.mzmine.modules.rawdatamethods.rawdataexport.RawDataExportModule;
 import net.sf.mzmine.modules.rawdatamethods.rawdataimport.RawDataImportModule;
 import net.sf.mzmine.modules.rawdatamethods.sortdatafiles.SortDataFilesModule;
@@ -220,7 +219,6 @@ public class MZmineModulesList {
       DeconvolutionModule.class, //
       ShapeModelerModule.class, //
       PeakExtenderModule.class, //
-      TargetedPeakDetectionModule.class, //
       ADAP3DecompositionV1_5Module.class, //
       ADAP3DecompositionV2Module.class, //
 

@@ -16,21 +16,21 @@
  * USA
  */
 
-package net.sf.mzmine.modules.rawdatamethods.peakpicking.targetedpeakdetection;
+package net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter;
 
 import net.sf.mzmine.datamodel.DataPoint;
 
 /**
  * DataPoint implementation extended with retention time and scan number
  */
-class GapDataPoint implements DataPoint {
+class ScanPoint implements DataPoint {
 
   private int scanNumber;
   private double mz, rt, intensity;
 
   /**
    */
-  GapDataPoint(int scanNumber, double mz, double rt, double intensity) {
+  ScanPoint(int scanNumber, double mz, double rt, double intensity) {
 
     this.scanNumber = scanNumber;
     this.mz = mz;

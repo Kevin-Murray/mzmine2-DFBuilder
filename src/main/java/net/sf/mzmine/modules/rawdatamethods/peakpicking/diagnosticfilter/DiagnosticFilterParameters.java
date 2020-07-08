@@ -16,15 +16,18 @@
  * USA
  */
 
-package net.sf.mzmine.modules.rawdatamethods.filtering.diagnosticfilter;
+package net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter;
 
 import net.sf.mzmine.main.MZmineCore;
 import net.sf.mzmine.parameters.Parameter;
 import net.sf.mzmine.parameters.impl.SimpleParameterSet;
+import net.sf.mzmine.parameters.parametertypes.BooleanParameter;
 import net.sf.mzmine.parameters.parametertypes.DoubleParameter;
 import net.sf.mzmine.parameters.parametertypes.OptionalParameter;
 import net.sf.mzmine.parameters.parametertypes.filenames.FileNameParameter;
 import net.sf.mzmine.parameters.parametertypes.ranges.MZRangeParameter;
+import net.sf.mzmine.parameters.parametertypes.tolerances.RTToleranceParameter;
+import net.sf.mzmine.parameters.parametertypes.ranges.IntRangeParameter;
 import net.sf.mzmine.parameters.parametertypes.selectors.RawDataFilesParameter;
 import net.sf.mzmine.parameters.parametertypes.tolerances.MZToleranceParameter;
 import net.sf.mzmine.parameters.parametertypes.selectors.ScanSelectionParameter;
@@ -46,7 +49,7 @@ public class DiagnosticFilterParameters extends SimpleParameterSet {
       new OptionalParameter<>(new FileNameParameter("(Optional) exclusion feature list input file",
 		  "Spectral massess and retentions windows to exclude from export, containing the mz, start RT, and end RT",
 		  "csv"));
-
+  
   public static final MZToleranceParameter mzDifference = new MZToleranceParameter();
 
   public static final DoubleParameter basePeakPercent = new DoubleParameter(
@@ -58,15 +61,18 @@ public class DiagnosticFilterParameters extends SimpleParameterSet {
       "Minimum diagnostic ion intensity (abundance)",
       "Minimum relative abundance of which ms/ms product ions must be above to be included in analysis, will chose non-zero minimum between %base peak and min intensity",
       MZmineCore.getConfiguration().getRTFormat(), 25000.0);
+  
+  public static final RTToleranceParameter rtTolerance = new RTToleranceParameter();
 
-  public static final FileNameParameter fileName = new FileNameParameter("Peaklist output file",
-      "Name of the output CSV file containing m/z and RT of selected precursor ions. "
-          + "If the file already exists, it will be overwritten.",
-      "csv");
+  public static final OptionalParameter<FileNameParameter> exportFile =
+      new OptionalParameter<>(new FileNameParameter("(Optional) Export detected precursor list",
+		  "Precursor mz, rt, and diagnostic target info are exported",
+		  "csv"));
 
   public DiagnosticFilterParameters() {
-    super(new Parameter[] {dataFiles, scanSelection, diagnosticFile, exclusionFile,
-        mzRange, mzDifference, basePeakPercent, minIntensity, fileName});
+    super(new Parameter[] {dataFiles, scanSelection, mzRange, diagnosticFile,
+        mzDifference, basePeakPercent, minIntensity, rtTolerance, exclusionFile,
+        exportFile});
   }
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.sf.mzmine.modules.rawdatamethods.filtering.diagnosticfilter;
+package net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter;
 
 import com.google.common.collect.Range;
 /**

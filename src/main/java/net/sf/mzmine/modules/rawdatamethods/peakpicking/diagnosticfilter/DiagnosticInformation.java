@@ -16,7 +16,7 @@
  * USA
  */
 
-package net.sf.mzmine.modules.rawdatamethods.filtering.diagnosticfilter;
+package net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter;
 
 public class DiagnosticInformation {
 	

@@ -16,13 +16,11 @@
  * USA
  */
 
-package net.sf.mzmine.modules.rawdatamethods.filtering.diagnosticfilter;
+package net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter;
 
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
-
-import java.io.FileWriter;
 
 import net.sf.mzmine.datamodel.MZmineProject;
 import net.sf.mzmine.datamodel.RawDataFile;
@@ -59,7 +57,7 @@ public class DiagnosticFilterModule implements MZmineProcessingModule {
 
     for(RawDataFile dataFile : parameters.getParameter(DiagnosticFilterParameters.dataFiles)
         .getValue().getMatchingRawDataFiles()) {
-    	Task newTask = new DiagnosticFilterTask(dataFile, parameters);
+    	Task newTask = new DiagnosticFilterTask(project, dataFile, parameters);
     	tasks.add(newTask);
     }
 
@@ -68,7 +66,7 @@ public class DiagnosticFilterModule implements MZmineProcessingModule {
 
   @Override
   public @Nonnull MZmineModuleCategory getModuleCategory() {
-	return MZmineModuleCategory.RAWDATAFILTERING;
+	return MZmineModuleCategory.PEAKPICKING;
   }
 
   @Override
