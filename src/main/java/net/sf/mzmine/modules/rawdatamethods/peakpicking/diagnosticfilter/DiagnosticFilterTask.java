@@ -186,11 +186,9 @@ public class DiagnosticFilterTask extends AbstractTask {
                 continue;
             }
             
-            // Calculate Neutral Losses
-            List<Double> neutralLoss = new ArrayList<>();
+            // Get Product Ions
             List<Double> fragmentIon = new ArrayList<>();
             for(DataPoint dataPoint : scanDataPoints){
-                neutralLoss.add(scan.getPrecursorMZ() - dataPoint.getMZ());
                 fragmentIon.add(dataPoint.getMZ());
             }
 
@@ -227,13 +225,15 @@ public class DiagnosticFilterTask extends AbstractTask {
                 if (targetedNF[0] != 0) {
                     for (double key : targetedNF) {
                         List<Boolean> check = new ArrayList<>();
-                        for (double MZ : neutralLoss) {
-                            check.add(mzDifference.getToleranceRange(key).contains(MZ));
+                        double targetNL = scan.getPrecursorMZ() - key;
+                        
+                        for (double MZ : fragmentIon) {
+                            check.add(mzDifference.getToleranceRange(targetNL).contains(MZ));
                         }
-                        foundMZ.add(check.contains(true));
+                        foundNF.add(check.contains(true));
                     }
                 } else {
-                    foundMZ.add(true);
+                    foundNF.add(true);
                 }
                 
                 // If all fragment ions and neutral losses found, add target
