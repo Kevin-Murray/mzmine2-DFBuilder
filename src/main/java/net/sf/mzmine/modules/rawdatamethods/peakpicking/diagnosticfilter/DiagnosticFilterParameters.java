@@ -21,13 +21,11 @@ package net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter;
 import net.sf.mzmine.main.MZmineCore;
 import net.sf.mzmine.parameters.Parameter;
 import net.sf.mzmine.parameters.impl.SimpleParameterSet;
-import net.sf.mzmine.parameters.parametertypes.BooleanParameter;
 import net.sf.mzmine.parameters.parametertypes.DoubleParameter;
 import net.sf.mzmine.parameters.parametertypes.OptionalParameter;
 import net.sf.mzmine.parameters.parametertypes.filenames.FileNameParameter;
 import net.sf.mzmine.parameters.parametertypes.ranges.MZRangeParameter;
 import net.sf.mzmine.parameters.parametertypes.tolerances.RTToleranceParameter;
-import net.sf.mzmine.parameters.parametertypes.ranges.IntRangeParameter;
 import net.sf.mzmine.parameters.parametertypes.selectors.RawDataFilesParameter;
 import net.sf.mzmine.parameters.parametertypes.tolerances.MZToleranceParameter;
 import net.sf.mzmine.parameters.parametertypes.selectors.ScanSelectionParameter;
@@ -41,38 +39,38 @@ public class DiagnosticFilterParameters extends SimpleParameterSet {
   public static final MZRangeParameter mzRange =
       new MZRangeParameter("Precursor m/z", "Range of precursor m/z values");
  
-  public static final FileNameParameter diagnosticFile = new FileNameParameter("Diagnostic feature list input file",
-		  "Name of the input diagnostic features containing the name, neutral loss shift, and product ions of feature",
+  public static final FileNameParameter diagnosticFile = new FileNameParameter("Diagnostic feature list file",
+		  "CSV file containing diagnostic filter targets. See Help for more info.",
 		  "csv");
   
   public static final OptionalParameter<FileNameParameter> exclusionFile =
-      new OptionalParameter<>(new FileNameParameter("(Optional) exclusion feature list input file",
-		  "Spectral massess and retentions windows to exclude from export, containing the mz, start RT, and end RT",
+      new OptionalParameter<>(new FileNameParameter("(Optional) Exclusion feature list file",
+		  "Optional CSV file of mass-RT combinations to exclude. See Help for more info.",
 		  "csv"));
   
   public static final MZToleranceParameter mzDifference = new MZToleranceParameter();
 
   public static final DoubleParameter basePeakPercent = new DoubleParameter(
-      "Minimum diagnostic ion intensity (% base peak)",
-      "Percent of scan base peak of which ms/ms product ions must be above to be included in analysis, will chose non-zero minimum between %base peak and min intensity",
+      "Minimum ion intensity (% base peak)",
+      "Minimum ion intesity for screening, scaled to base peak. Will choose non-zero maximum between %base peak and relative abundance.",
       MZmineCore.getConfiguration().getRTFormat(), 5.0, 0.0, 100.0);
     
   public static final DoubleParameter minIntensity = new DoubleParameter(
-      "Minimum diagnostic ion intensity (abundance)",
-      "Minimum relative abundance of which ms/ms product ions must be above to be included in analysis, will chose non-zero minimum between %base peak and min intensity",
+      "Minimum ion intensity (relative abundance)",
+      "Minimum ion intesity for screening, relative abundance. Will choose non-zero maximum between %base peak and relative abundance.",
       MZmineCore.getConfiguration().getRTFormat(), 25000.0);
   
   public static final RTToleranceParameter rtTolerance = new RTToleranceParameter();
 
   public static final OptionalParameter<FileNameParameter> exportFile =
       new OptionalParameter<>(new FileNameParameter("(Optional) Export detected precursor list",
-		  "Precursor mz, rt, and diagnostic target info are exported",
+		  "Optional export of precursor hits of interest. See Help for more info.",
 		  "csv"));
 
   public DiagnosticFilterParameters() {
-    super(new Parameter[] {dataFiles, scanSelection, mzRange, diagnosticFile,
-        mzDifference, basePeakPercent, minIntensity, rtTolerance, exclusionFile,
-        exportFile});
+    super(new Parameter[] {dataFiles, scanSelection, mzRange, mzDifference,
+        diagnosticFile, basePeakPercent, minIntensity, rtTolerance,
+        exclusionFile, exportFile});
   }
 
 }
