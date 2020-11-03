@@ -104,6 +104,7 @@ import net.sf.mzmine.modules.rawdatamethods.peakpicking.manual.ManualPeakPickerM
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.manual.XICManualPickerModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.massdetection.MassDetectionModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.msms.MsMsPeakPickerModule;
+import net.sf.mzmine.modules.rawdatamethods.peakpicking.targetedpeakdetection.TargetedPeakDetectionModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter.DiagnosticFilterModule;
 import net.sf.mzmine.modules.rawdatamethods.rawdataexport.RawDataExportModule;
 import net.sf.mzmine.modules.rawdatamethods.rawdataimport.RawDataImportModule;
@@ -179,6 +180,7 @@ public class MZmineModulesList {
       SortDataFilesModule.class, //
       XICManualPickerModule.class, //
       DiagnosticFilterModule.class, //
+      TargetedPeakDetectionModule.class,//
 
       // Alignment
       SortPeakListsModule.class, //
