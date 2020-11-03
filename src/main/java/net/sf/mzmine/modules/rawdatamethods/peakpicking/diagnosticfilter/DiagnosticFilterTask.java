@@ -111,7 +111,7 @@ public class DiagnosticFilterTask extends AbstractTask {
 
         setStatus(TaskStatus.PROCESSING);
 
-        logger.info("Started diagnostic filter on " + rawDataFile);
+        logger.info("Started diagnostic filtering on " + rawDataFile);
 
         scans = scanSelection.getMatchingScans(rawDataFile);
         totalScans = scans.length;
@@ -141,7 +141,7 @@ public class DiagnosticFilterTask extends AbstractTask {
                 continue;
             }
 
-            // check parent m/z in range
+            // check parent m/z in mass range
             if (!mzRange.contains(scan.getPrecursorMZ())) {
                 processedScans++;
                 continue;
@@ -167,7 +167,7 @@ public class DiagnosticFilterTask extends AbstractTask {
                 }
             }
             
-            // Get intensity threshold - basepeak vs absolute
+            // Get intensity threshold - basepeak vs relative
             double highestIntensity = 0;
             if (basePeakPercent == 0) {
                 highestIntensity = minIntensity;
@@ -191,7 +191,6 @@ public class DiagnosticFilterTask extends AbstractTask {
             for(DataPoint dataPoint : scanDataPoints){
                 fragmentIon.add(dataPoint.getMZ());
             }
-
 
             // Target information
             HashMap<String, Boolean> targetMap = new HashMap<>();
@@ -258,6 +257,7 @@ public class DiagnosticFilterTask extends AbstractTask {
                         id = id + "target=" + entry.getKey() + ';';
                     }
                 }
+                
                 // Remove tailing semi-colon
                 id = id.substring(0, id.length() - 1);
                 
@@ -301,13 +301,13 @@ public class DiagnosticFilterTask extends AbstractTask {
 
         // Add task description to peakList
         targetPeakList.addDescriptionOfAppliedTask(
-                new SimplePeakListAppliedMethod("Diagnostic fragmentation filter ", parameters));
+                new SimplePeakListAppliedMethod("DFBuilder Target chromatogram builder ", parameters));
 
         if (exportFile) {
             writeDiagnostic(exportList);
         }
 
-        logger.log(Level.INFO, "Finished diagnostic fragmentation filter on {0}", this.rawDataFile);
+        logger.log(Level.INFO, "Finished diagnostic fragmentation screnning on {0}", this.rawDataFile);
         setStatus(TaskStatus.FINISHED);
     }
 
@@ -331,7 +331,7 @@ public class DiagnosticFilterTask extends AbstractTask {
     }
 
     public String getTaskDescription() {
-        return "Updating fragment filter visualizer of " + rawDataFile;
+        return "Screening for fragment patterns in " + rawDataFile;
     }
 
     public static boolean isAllTrue(boolean[] array) {
@@ -526,7 +526,7 @@ public class DiagnosticFilterTask extends AbstractTask {
     }
 
     public void writeDiagnostic(List<String> export) {
-        // Write output to csv file - for targeted feature detection module.
+        // Write output to csv file - for DFBuilder target chromatogram builder module.
         try {
             // Cancel?
             if (isCanceled()) {
