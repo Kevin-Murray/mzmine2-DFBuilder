@@ -6,10 +6,7 @@
 package net.sf.mzmine.modules.rawdatamethods.peakpicking.diagnosticfilter;
 
 import com.google.common.collect.Range;
-/**
- *
- * @author msp15
- */
+
 public class ExclusionInformation {
     	
 	private Double mz;
