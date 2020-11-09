@@ -359,11 +359,23 @@ public class DiagnosticFilterTask extends AbstractTask {
 
             for (; finishedLines < diagnosticListValue.length; finishedLines++) {
                 try {
-                    String name = diagnosticListValue[finishedLines][0].trim();
+                    
+                    String name = new String();
+                    String mzString = new String();
+                    String nlString = new String();
+                    
+                    name = diagnosticListValue[finishedLines][0].trim();
 
                     // Remove FEFF character from CSV
-                    String mzString = diagnosticListValue[finishedLines][1].replace("\uFEFF", "").trim();
-                    String nlString = diagnosticListValue[finishedLines][2].replace("\uFEFF", "").trim();
+                    mzString = diagnosticListValue[finishedLines][1].replace("\uFEFF", "").trim();
+                    
+                    // If no neutral loss specifed, file no third column to parse
+                    // TODO - better handling of this. 
+                    try {
+                        nlString = diagnosticListValue[finishedLines][2].replace("\uFEFF", "").trim();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     double[] mz = {0};
                     double[] nl = {0};
