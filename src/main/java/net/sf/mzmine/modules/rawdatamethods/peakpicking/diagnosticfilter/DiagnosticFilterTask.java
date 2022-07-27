@@ -70,6 +70,7 @@ public class DiagnosticFilterTask extends AbstractTask {
 
 
 
+
     // User Parameters
     private ParameterSet parameters;
     private ScanSelection scanSelection;
