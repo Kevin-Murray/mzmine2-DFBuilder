@@ -63,6 +63,7 @@ public class DiagnosticFilterTask extends AbstractTask {
     private final MZmineProject project;
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
+
     private RawDataFile rawDataFile;
     private int totalScans, processedScans;
     private Scan[] scans;
