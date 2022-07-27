@@ -69,6 +69,7 @@ public class DiagnosticFilterTask extends AbstractTask {
     private Scan[] scans;
     private PeakList targetPeakList;
 
+
     // User Parameters
     private ParameterSet parameters;
     private ScanSelection scanSelection;
